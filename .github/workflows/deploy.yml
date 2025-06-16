@@ -23,9 +23,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # submodules: true # Temayı submodule olarak yönetmiyorsak bu satırı kaldırıyoruz veya 'false' yapıyoruz.
-          # Eğer yukarıdaki "Temayı Normal Dizin Gibi Yönetme" çözümünü uyguladıysanız bu satır kapalı kalmalı.
-          fetch-depth: 0   # Git geçmişinin tamamını çeker, bu Hugo'nun bazı özelliklerini destekleyebilir.
+          # submodules: true # Bu satır ya tamamen kaldırılmalı ya da aşağıdaki gibi olmalı
+          submodules: false # <<< BU SATIR BÖYLE OLMALI
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
