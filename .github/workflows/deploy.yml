@@ -1,18 +1,12 @@
 name: Build and Deploy News Site
 
 on:
-  # Manuel olarak çalıştırma izni verir
   workflow_dispatch:
-
-  # Belirli bir takvime göre otomatik olarak çalıştır
-  # Her gün UTC saatiyle 03:00'te çalışır (API limitlerinizi düşünerek ayarladım)
   schedule:
     - cron: '0 3 * * *' # Günlük 03:00 UTC
-
-  # Ana brança push yapıldığında da çalıştır (isteğe bağlı)
   push:
     branches:
-      - main # Ana brançınızın adı neyse onu kullanın
+      - main 
 
 jobs:
   build-and-deploy:
@@ -22,118 +16,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true # Eğer Hugo temanız bir submodule ise bu gereklidir
-          fetch-depth: 0   # Geçmişi tam olarak çeker
+          submodules: true
+          fetch-depth: 0   
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9' # Kullandığınız Python sürümünü belirtin
+          python-version: '3.9' 
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt # Eğer bir requirements.txt dosyanız varsa
           pip install Flask requests apscheduler python-dotenv
 
-      - name: Run News Bot to fetch news and build Hugo content
+      - name: Run News Bot (Fetch News & Build Hugo Content)
         env:
-          WORLD_NEWS_API_KEY: ${{ secrets.WORLD_NEWS_API_KEY }} # GitHub Secret'tan API anahtarını alır
+          WORLD_NEWS_API_KEY: ${{ secrets.WORLD_NEWS_API_KEY }}
         run: |
-          # news_bot.py dosyasının çalıştığı dizini ayarla
-          cd static_site
-
-          # Flask uygulamasını bir arka plan sürecinde çalıştır
-          # Gunicorn veya uWSGI gibi bir WSGI sunucusu kullanmak daha iyidir
-          # Ancak basitleştirmek için doğrudan Flask'ı çalıştırabiliriz.
-          # Bot'un cron görevi çalıştığı için, sadece bir kere tetiklememiz yeterli
-          # Flask uygulamasını çalıştırmadan önce Hugo content yolunu tekrar oluşturalım
-          mkdir -p content/posts
-
-          # Flask botunu başlat ve /fetch_and_build endpoint'ini çağır
-          # Bu, haberleri çekecek ve Hugo içeriğini oluşturacaktır.
-          # Botun kendisi Hugo'yu derleyecek.
-          # Botun yerel sunucusunu başlatmaya gerek yok, doğrudan fetch_and_build fonksiyonunu çağırabiliriz
-          # Veya basitçe haber çekme ve Hugo derleme mantığını doğrudan bu adıma entegre edebiliriz
-
-          # En basit yöntem: Botun haber çekme ve Hugo derleme işlevlerini doğrudan Python script olarak çalıştır
-          # news_bot.py içindeki ana mantığı bir fonksiyona ayırıp buradan çağırabiliriz
-          # Şimdilik, botun içindeki fetch_and_build Flask endpoint'i yerine,
-          # haber çekme ve Hugo derleme mantığını doğrudan çalıştırmak için ayrı bir script yazalım veya
-          # news_bot.py'yi CLI olarak çalıştıracak şekilde düzenleyelim.
-
-          # GEÇİCİ ÇÖZÜM: news_bot.py içindeki fonksiyonları manuel çağır.
-          # news_bot.py'yi Flask sunucusu olarak çalıştırmak yerine,
-          # botun ana mantığını doğrudan GitHub Actions içinde çalıştırmak daha uygun.
-          # Bunun için news_bot.py'yi biraz değiştirmemiz gerekecek.
-
-          # ÖNERİLEN YAKLAŞIM: Ayrı bir 'fetch_and_build_script.py' oluşturun veya
-          # news_bot.py'yi CLI olarak çalıştırın.
-          # Şu anki news_bot.py dosyanızın Flask uygulaması olması nedeniyle doğrudan çağıramayız.
-          # En pratik yol: fetch_and_build fonksiyonunun içeriğini bu adıma taşımak.
-          # Veya curl ile kendi endpoint'ini çağırabiliriz (ama bu, botun çalışmasını gerektirir)
-          # curl -X GET "http://localhost:5000/fetch_and_build"
-
-          # Alternatif ve Daha İyi Yaklaşım: news_bot.py'deki fetch_and_build_news mantığını doğrudan çağırın
-          # Bunun için news_bot.py'deki Flask kısmını ayırmanız gerekir.
-          # Veya basitçe bir kez çalışacak şekilde main fonksiyonunu ayarlayabilirsiniz:
-
-          python ../news_bot.py # Botun bulunduğu dizine geri dön ve botu çalıştır
-
-          # Not: Yukarıdaki `python ../news_bot.py` komutu, Flask sunucusunu başlatacaktır.
-          # Ancak GitHub Actions'da kalıcı bir sunucuya ihtiyacımız yok.
-          # Haber çekme ve Hugo derleme mantığını news_bot.py'den ayrı bir fonksiyona ayırmak daha iyidir.
-          # Örneğin, news_bot.py'ye bir 'run_once()' fonksiyonu ekleyebiliriz:
-          #
-          # def run_once():
-          #     processed_ids = load_processed_news_ids()
-          #     news_items = fetch_news("Global", 15)
-          #     # ... markdown oluşturma ve kaydetme mantığı ...
-          #     build_hugo_site()
-          #
-          # Ve sonra burada `python -c "from news_bot import run_once; run_once()"` çağırabilirdik.
-          # Şimdilik, var olan yapıya uygun bir yaklaşım deneyelim:
-          # news_bot.py'yi bir süre çalıştırıp sonra öldürmek (kirli bir çözüm) veya
-          # Flask uygulamasını bir test istemcisiyle çalıştırmak.
-
-          # Mevcut Flask yapınıza uygun en basit G.A. çözümü (Flask uygulamasının başlatılması ve çağrılması):
-          # Flask uygulamasını başlat ve curl ile tetikle
-          # Dikkat: Bu, Flask'ın arka planda çalışmasını gerektirir.
-          # Flask'ı ayrı bir işlem olarak başlatmak için '&' kullanabiliriz.
-
-          # Flask'ı ayrı bir işlem olarak başlat (arka planda)
-          # (venv) berktug@berktug-BoDE-WXX9:~/Desktop/my_news_site_bot/static_site$ python ../news_bot.py &
-          # sleep 10 # Flask'ın başlaması için biraz bekle
-          # curl -X GET "http://localhost:5000/fetch_and_build"
-          # kill $(jobs -p) # Flask sürecini sonlandır
-
-          # Ancak bu yaklaşım GitHub Actions için karmaşık ve hatalara açık.
-          # En iyi yol, news_bot.py'deki Flask bağımlılığını azaltmaktır.
-          # Aşağıdaki Hugo adımına geçmeden önce mevcut news_bot.py'nin Hugo içeriğini oluşturduğunu varsayalım.
-          # Eğer bot Flask uygulamasını başlatır başlatmaz Hugo'yu derliyorsa, bu adım yeterli olabilir.
-
-          # --- Bu adımın yerine aşağıdaki iki adımı Hugo derlemesini ayırmak için kullanabiliriz ---
-          echo "Flask botu haberleri çekiyor ve Hugo içeriğini oluşturuyor..."
-          python ../news_bot.py &
-          sleep 30 # Flask botunun ve scheduler'ın işini yapması için yeterli zaman ver.
-          # Eğer flask botunuz scheduler ile çalışıyorsa, sadece başlatmanız yeterli.
-          # API'ye `fetch_and_build` endpoint'ini doğrudan tetiklemeye gerek kalmaz.
-          # Bot kendini kapatana kadar beklemeye gerek yok, bir süre sonra otomatik çalışır ve Hugo'yu derler.
-
-          # Eğer `news_bot.py` sadece bir kere çalışsın ve hemen kapansın istiyorsak:
-          # `news_bot.py` dosyanızda `app.run` yerine doğrudan haber çekme ve Hugo derleme fonksiyonlarını çağırın.
-          # Örneğin, news_bot.py'nin en altına şunu ekleyin (Flask'ı kaldırırsanız):
-          # if __name__ == '__main__':
-          #    news_items = fetch_news()
-          #    for item in news_items:
-          #        create_hugo_markdown_file(item)
-          #    build_hugo_site()
-          # O zaman yukarıdaki `python ../news_bot.py` komutu yeterli olur.
+          # Flask sunucusunu başlatmadan, haber çekme ve Hugo içeriği oluşturma mantığını doğrudan çağır.
+          # news_bot.py içindeki run_news_processing_and_build fonksiyonunu kullanıyoruz.
+          python -c "from news_bot import run_news_processing_and_build; run_news_processing_and_build()"
+        working-directory: ${{ github.workspace }} # Botun kendi kök dizininde çalışmasını sağla
 
       - name: Build Hugo Site
-        working-directory: static_site # Hugo'nun site klasöründe çalışmasını sağlar
+        working-directory: static_site # Hugo'nun çalışacağı dizini belirt
         run: |
-          # Hugo'yu yükle
+          # Hugo'yu yükle (Gerekli versiyonu seçin)
           wget https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.deb
           sudo dpkg -i hugo_extended_0.92.2_Linux-64bit.deb
 
@@ -144,5 +52,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./static_site/public # Hugo'nun çıktısının olduğu dizin
-          # publish_branch: gh-pages # Varsayılan olarak gh-pages branşına dağıtır. Eğer Pages main branch'i kullanıyorsa boş bırakın.
+          publish_dir: ./static_site/public # Hugo'nun çıktısının olduğu dizin (repo köküne göre)
+          # publish_branch: gh-pages # Eğer GitHub Pages'i farklı bir branştan yayınlıyorsanız bu satırı aktif edin
