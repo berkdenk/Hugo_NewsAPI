@@ -1,4 +1,4 @@
-baseURL = 'http://localhost:1313/'
+baseURL = 'https://berkdenk.github.io/Hugo_NewsAPI/'
 languageCode = 'en-us' # Veya 'tr-tr'
 title = 'My News Site'
 theme = "minimal" # Burası önemli! Küçük harf "minimal"
