@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ .Site.Title }} - {{ .Site.Params.description }}</title>
+
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f8f9fa; /* Açık gri arka plan */
+            color: #343a40; /* Koyu gri metin */
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 20px auto; 
+            padding: 30px; 
+            background: #ffffff; /* Beyaz kart arka planı */
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Hafif gölge */
+        }
+        h1, h2 { 
+            color: #007bff; /* Mavi başlık */
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 2.5em; }
+        h2 { font-size: 1.8em; }
+        hr { 
+            border-top: 1px solid #dee2e6; /* Açık gri çizgi */
+            margin: 30px 0; 
+        }
+        .post-item { 
+            border: 1px solid #e0e0e0; 
+            border-radius: 5px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            background-color: #fefefe;
+            transition: transform 0.2s ease-in-out;
+        }
+        .post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .post-title a { 
+            text-decoration: none; 
+            color: #0056b3; /* Koyu mavi link */
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .post-title a:hover { 
+            text-decoration: underline; 
+        }
+        .post-meta { 
+            font-size: 0.9em; 
+            color: #6c757d; /* Gri meta metin */
+            margin-top: 5px;
+        }
+        .post-summary { 
+            margin-top: 15px; 
+            margin-bottom: 15px;
+        }
+        .read-more { 
+            color: #28a745; /* Yeşil "Devamını Oku" linki */
+            text-decoration: none; 
+            font-weight: bold;
+        }
+        .read-more:hover { 
+            text-decoration: underline; 
+        }
+        .text-center { text-align: center; }
+        .mt-5 { margin-top: 3rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .text-muted { color: #6c757d !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">{{ .Site.Title }}</h1>
+        <p class="text-center">{{ .Site.Params.description }}</p>
+        <hr>
+
+        <h2>Recent News</h2>
+        {{ range .Paginator.Pages }}
+          <div class="post-item">
+            <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <p class="post-meta">{{ .PublishDate.Format "January 2, 2006" }} 
+                {{ with .Params.author }}<span class="text-muted">by {{ . }}</span>{{ end }}
+            </p>
+            <div class="post-summary">{{ .Summary | plainify | safeHTML }}</div>
+            <a href="{{ .Permalink }}" class="read-more">Read More &rarr;</a>
+          </div>
+        {{ end }}
+
+        {{ template "_internal/pagination.html" . }}
+
+        <footer class="text-center mt-5">
+            <small>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved. Powered by Hugo | Minimal | Worlds News API.</small>
+        </footer>
+    </div>
+</body>
+</html>

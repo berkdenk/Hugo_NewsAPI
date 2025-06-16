@@ -1,0 +1,17 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'en-us' # Veya 'tr-tr'
+title = 'My News Site'
+theme = "minimal" # Burası önemli! Küçük harf "minimal"
+
+[outputs]
+  home = [ "HTML", "RSS", "JSON" ]
+
+[params]
+    # (Var olan params ayarlarınız burada kalsın, altına ekleyin)
+    # Minimal teması için ana sayfada gönderileri gösterme ayarı
+    showPostList = true # Postları ana sayfada göstermek için
+    description = "Your daily dose of fresh news." # Sitenizin açıklaması
+    author = "My News Bot" # Yazar adı
+
+# Ana sayfada gösterilecek gönderi sayısı
+paginate = 10

@@ -1,0 +1,20 @@
+# Python derleme çıktıları
+__pycache__/
+*.pyc
+
+# Sanal ortam
+venv/
+.venv/
+
+# Hassas Veriler - Bu dosya API anahtarınızı içerir ve GitHub'a yüklenmemelidir.
+.env
+
+# Bot tarafından oluşturulan dosyalar
+processed_news_ids.txt # Botun hangi haberleri işlediğini takip eden dosya
+
+# Hugo'nun derlenmiş çıktı klasörü
+static_site/public/ # Hugo'nun ürettiği HTML, CSS, JS dosyaları buradadır. GitHub Actions tarafından oluşturulacak.
+
+# Eğer temanız git submodule olarak ekliyse veya ayrı bir repo ise, bu satırı YORUM SATIRI BIRAKIN veya SİLİN.
+# Eğer temayı manuel indirip yapıştırdıysanız ve depoda OLMASINI istiyorsanız bu satırı SİLİN.
+# static_site/themes/minimal/
