@@ -19,6 +19,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # İş akışının çalışacağı işletim sistemi
 
+    permissions: # BU YENİ EKLENEN KISIM!
+      contents: write # Repoya yazma izni (örneğin submodule ekleme için)
+      pages: write # GitHub Pages'a dağıtım izni
+      id-token: write # OIDC token almak için gerekli izin (son hata buydu)
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -67,7 +72,7 @@ jobs:
           # Hugo sitesini derle. -D taslakları da dahil eder.
           hugo -D
 
-      # YENİ EKLENEN ADIMLAR: GitHub Pages için resmi artifact yükleme ve dağıtım aksiyonları
+      # GitHub Pages için resmi artifact yükleme ve dağıtım aksiyonları
       - name: Upload Hugo Artifact
         uses: actions/upload-pages-artifact@v3
         with:
