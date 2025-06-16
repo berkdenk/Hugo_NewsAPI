@@ -25,7 +25,7 @@ jobs:
         with:
           # `static_site/themes/minimal` gibi alt modülleri dışlamak için ayar.
           # Bu, "submodule issue" hatasını çözmelidir.
-          submodules: false
+          submodules: true
           fetch-depth: 0
 
       - name: Set up Python
