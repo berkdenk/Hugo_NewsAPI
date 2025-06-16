@@ -4,10 +4,10 @@ from flask import Flask, request, jsonify
 from datetime import datetime
 import subprocess
 from apscheduler.schedulers.background import BackgroundScheduler
-from dotenv import load_dotenv # <<< BU SATIRI EKLEYİN
+from dotenv import load_dotenv # <<< BU SATIR .env dosyasını yükler
 
 # .env dosyasındaki ortam değişkenlerini yükle
-load_dotenv() # <<< BU SATIRI EKLEYİN
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -22,6 +22,7 @@ if not WORLD_NEWS_API_KEY:
     raise ValueError("WORLD_NEWS_API_KEY ortam değişkeni ayarlanmadı. Lütfen .env dosyanızı veya ortam değişkenlerinizi kontrol edin.")
 
 # Hugo sitenizin content klasöründeki haberlerin kaydedileceği yol
+# os.path.join ile doğru path'i sağlarız, işletim sisteminden bağımsız.
 HUGO_CONTENT_PATH = os.path.join(os.path.dirname(__file__), 'static_site', 'content', 'posts')
 
 # Haberlerin kaydedileceği kategori (Hugo'da kullanılır)
@@ -93,12 +94,14 @@ def create_hugo_markdown_file(news_item, processed_ids):
         elif 'T' in publish_date_str:
             dt_obj = datetime.strptime(publish_date_str, "%Y-%m-%dT%H:%M:%S")
         else:
-            dt_obj = datetime.strptime(publish_date_str.split(' ')[0], "%Y-%m-%d") 
+            # Sadece tarih kısmı varsa
+            dt_obj = datetime.strptime(publish_date_str.split(' ')[0], "%Y-%m-%d")
     except ValueError:
         print(f"Uyarı: '{publish_date_str}' tarih formatı tanınmadı. Mevcut zaman kullanılacak.")
         dt_obj = datetime.now() 
 
     # Hugo için uygun tarih formatı (ör: 2023-10-27T10:00:00+03:00)
+    # Varsayılan olarak Türkiye saati dilimi (+03:00) eklendi.
     date_formatted = dt_obj.strftime("%Y-%m-%dT%H:%M:%S+03:00")
 
     # Markdown dosyasının tam yolu
@@ -108,6 +111,7 @@ def create_hugo_markdown_file(news_item, processed_ids):
     def escape_for_yaml(text):
         if text is None:
             return ""
+        # Çift tırnakları ve ters slash'leri kaçır
         return str(text).replace('\\', '\\\\').replace('"', '\\"')
 
     # Başlık ve diğer değerleri YAML için kaçırılmış versiyonlarını oluştururuz.
@@ -118,15 +122,15 @@ def create_hugo_markdown_file(news_item, processed_ids):
     escaped_url = escape_for_yaml(news_item.get('url', ''))
     escaped_source_name = escape_for_yaml(news_item.get('source_name', 'Unknown Source')) # Haber kaynağı adı eklendi
 
-    # Etiketler için liste oluşturma
+    # Etiketler için liste oluşturma (sentiment, vb.)
     tags_list = []
     sentiment_tags = news_item.get('sentiment', '') 
     
     if isinstance(sentiment_tags, str) and sentiment_tags:
-        for tag in sentiment_tags.split(', '):
+        for tag in sentiment_tags.split(', '): # Virgülle ayrılmış etiketler için
             stripped_tag = tag.strip()
             if stripped_tag:
-                tags_list.append(f'"{escape_for_yaml(stripped_tag)}"')
+                tags_list.append(f'"{escape_for_yaml(stripped_tag)}"') # Her etiketi tırnak içinde ekle
     tags_string = ', '.join(tags_list) 
 
     # Front Matter (YAML formatında meta veri)
@@ -144,8 +148,9 @@ source_name: "{escaped_source_name}" # Front Matter'a source_name eklendi
 ---
 """
     # Haber içeriği
+    # İçerik boşsa açıklamayı kullan, yoksa boş string
     content = news_item.get('text', news_item.get('description', ''))
-    
+    # İçerikteki çift tırnakları ve ters slash'leri kaçır (Markdown uyumluluğu için)
     content = str(content).replace('"', '\\"').replace('\\', '\\\\')
 
     # Markdown dosyasını oluşturur ve içeriği yazar
@@ -163,9 +168,13 @@ source_name: "{escaped_source_name}" # Front Matter'a source_name eklendi
 def build_hugo_site():
     """Hugo statik sitesini yeniden derler."""
     print("Hugo sitesi yeniden derleniyor...")
-    hugo_path = os.path.join(os.path.dirname(__file__), 'static_site')
+    # Hugo'nun çalışacağı dizin (static_site klasörü)
+    hugo_root_path = os.path.join(os.path.dirname(__file__), 'static_site')
     try:
-        result = subprocess.run(["hugo", "-s", hugo_path, "-D"], capture_output=True, text=True, check=True)
+        # subprocess.run ile Hugo komutunu çalıştır
+        # '-s' bayrağı ile Hugo'nun site kök dizinini belirtiriz.
+        # '-D' bayrağı ile draft (taslak) sayfaları da derleriz.
+        result = subprocess.run(["hugo", "-s", hugo_root_path, "-D"], capture_output=True, text=True, check=True)
         print("--- Hugo Derleme Çıktısı ---")
         print(result.stdout)
         if result.stderr:
@@ -174,11 +183,13 @@ def build_hugo_site():
         print("Hugo sitesi başarıyla derlendi.")
         return True
     except subprocess.CalledProcessError as e:
+        # Hugo komutu bir hata kodu ile dönerse
         print(f"Hugo derlenirken hata oluştu: {e}")
         print("Stdout:", e.stdout)
         print("Stderr:", e.stderr)
         return False
     except FileNotFoundError:
+        # 'hugo' komutu bulunamazsa
         print("Hata: 'hugo' komutu bulunamadı. Hugo'nun sistem PATH'inizde olduğundan emin olun.")
         return False
 
@@ -214,9 +225,15 @@ def fetch_and_build_news():
     else:
         return jsonify({"status": "error", "message": "Haberler çekildi, ancak Hugo derlenirken hata oluştu. Hugo terminalini kontrol edin."})
 
-# news_bot.py dosyasının en altına bu fonksiyonu ekleyin
+
+# GitHub Actions'ta doğrudan çağrılacak ana işlem fonksiyonu
 def run_news_processing_and_build():
+    """Haber çekme, markdown oluşturma ve Hugo derleme sürecini bir kez çalıştırır."""
     print("Haber işleme ve Hugo derleme süreci başlatılıyor...")
+    
+    # 'posts' klasörünün var olduğundan emin olalım (GitHub Actions ortamında da)
+    os.makedirs(HUGO_CONTENT_PATH, exist_ok=True)
+
     processed_ids = load_processed_news_ids()
     newly_processed_ids = set()
 
@@ -243,26 +260,21 @@ def run_news_processing_and_build():
         print("Hugo derlenirken hata oluştu.")
 
 
-# Flask uygulamasını çalıştırma
+# Flask uygulamasını çalıştırma (yerel ortam için)
 if __name__ == '__main__':
-    # 'posts' klasörünün var olduğundan emin olalım
+    # Flask uygulamasını başlatmadan önce 'posts' klasörünün var olduğundan emin olalım
     os.makedirs(HUGO_CONTENT_PATH, exist_ok=True)
 
-    # Flask uygulamasını çalıştırmak için
-    # Eğer sadece tek seferlik işlem istiyorsanız bu bloğu silin
-    # veya farklı bir CLI komutuna bağlayın.
-
-    # Eğer Flask sunucusu olarak çalıştırılacaksa (yerel geliştirme için)
+    # Yerel olarak botu Flask sunucusu olarak çalıştırmak için scheduler'ı başlat
     scheduler = BackgroundScheduler()
+    # Flask test istemcisini kullanarak '/fetch_and_build' endpoint'ini belirli aralıklarla çağırır.
     scheduler.add_job(
-        func=lambda: app.test_client().get('/fetch_and_build'), # Flask endpoint'ini çağırır
+        func=lambda: app.test_client().get('/fetch_and_build'), 
         trigger='interval',
         hours=3 # Her 3 saatte bir çalıştır.
     )
     print("Haber çekme ve site derleme görevi zamanlayıcıya eklendi.")
     scheduler.start()
-
-    # GitHub Actions'ta bu kısım çalışmayacağı için yukarıdaki scheduler'ı oraya almadık.
-    # GitHub Actions'ta doğrudan run_news_processing_and_build'i çağıracağız.
-
+    
+    # Flask uygulamasını başlat (debug modu açık, tüm ağ arayüzlerinde dinler)
     app.run(debug=True, host='0.0.0.0', port=5000)
