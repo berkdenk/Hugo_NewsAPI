@@ -67,16 +67,12 @@ jobs:
           # Hugo sitesini derle. -D taslakları da dahil eder.
           hugo -D
 
-      - name: Deploy to GitHub Pages
-        # GitHub Pages'e derlenmiş siteyi dağıtmak için popüler bir action
-        uses: peaceiris/actions-gh-pages@v4
+      # YENİ EKLENEN ADIMLAR: GitHub Pages için resmi artifact yükleme ve dağıtım aksiyonları
+      - name: Upload Hugo Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          # GitHub tarafından sağlanan varsayılan bir token, dağıtım için yetkilidir.
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Hugo'nun derlenmiş çıktısının bulunduğu dizin.
-          # Burası `static_site` klasörünün içindeki `public` klasörüdür.
-          publish_dir: ./static_site/public
-          # GitHub Pages'i yayınladığınız branş.
-          # Bu satır, `gh-pages` branşının oluşmasını ve sitenizin o branştan yayınlanmasını sağlar.
-          # Bu, Pages ayarlarında "main" branşını görmeme ve 404 hatasını çözmelidir.
-          publish_branch: gh-pages
+          path: ./static_site/public # Hugo'nun çıktısının bulunduğu dizin
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # GitHub Pages'e dağıtım yapan resmi aksiyon
