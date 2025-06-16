@@ -214,18 +214,55 @@ def fetch_and_build_news():
     else:
         return jsonify({"status": "error", "message": "Haberler çekildi, ancak Hugo derlenirken hata oluştu. Hugo terminalini kontrol edin."})
 
+# news_bot.py dosyasının en altına bu fonksiyonu ekleyin
+def run_news_processing_and_build():
+    print("Haber işleme ve Hugo derleme süreci başlatılıyor...")
+    processed_ids = load_processed_news_ids()
+    newly_processed_ids = set()
+
+    news_items = fetch_news("Global", 15) # Varsayılan query ve number
+    if not news_items:
+        print("Haber çekilemedi veya API hatası. İşlem durduruluyor.")
+        return # Hata durumunda çık
+
+    for news_item in news_items:
+        news_id = create_hugo_markdown_file(news_item, processed_ids)
+        if news_id:
+            newly_processed_ids.add(news_id)
+
+    if newly_processed_ids:
+        processed_ids.update(newly_processed_ids)
+        save_processed_news_ids(processed_ids)
+        print(f"{len(newly_processed_ids)} yeni haber işlendi ve kaydedildi.")
+    else:
+        print("Yeni haber bulunamadı veya hepsi daha önce işlenmişti.")
+
+    if build_hugo_site():
+        print("Hugo sitesi başarıyla derlendi.")
+    else:
+        print("Hugo derlenirken hata oluştu.")
+
+
 # Flask uygulamasını çalıştırma
 if __name__ == '__main__':
+    # 'posts' klasörünün var olduğundan emin olalım
     os.makedirs(HUGO_CONTENT_PATH, exist_ok=True)
 
+    # Flask uygulamasını çalıştırmak için
+    # Eğer sadece tek seferlik işlem istiyorsanız bu bloğu silin
+    # veya farklı bir CLI komutuna bağlayın.
+
+    # Eğer Flask sunucusu olarak çalıştırılacaksa (yerel geliştirme için)
     scheduler = BackgroundScheduler()
-    
     scheduler.add_job(
-        func=lambda: app.test_client().get('/fetch_and_build'), 
+        func=lambda: app.test_client().get('/fetch_and_build'), # Flask endpoint'ini çağırır
         trigger='interval',
-        hours=3
+        hours=3 # Her 3 saatte bir çalıştır.
     )
     print("Haber çekme ve site derleme görevi zamanlayıcıya eklendi.")
     scheduler.start()
+
+    # GitHub Actions'ta bu kısım çalışmayacağı için yukarıdaki scheduler'ı oraya almadık.
+    # GitHub Actions'ta doğrudan run_news_processing_and_build'i çağıracağız.
 
     app.run(debug=True, host='0.0.0.0', port=5000)
