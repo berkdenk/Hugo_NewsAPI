@@ -7,7 +7,7 @@ on:
   # Bu, iş akışının belirli bir takvime göre otomatik olarak çalışmasını sağlar.
   # Her gün UTC saatiyle 03:00'te çalışır. API limitlerinizi göz önünde bulundurarak bu saati ayarlayabilirsiniz.
   schedule:
-    - cron: '0 3 * * *' 
+    - cron: '0 3 * * *'
 
   # Bu, ana brança (main) her push yapıldığında iş akışını çalıştırır.
   # Eğer sadece zamanlanmış çalıştırma istiyorsanız bu bloğu kaldırabilirsiniz.
@@ -23,8 +23,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # submodules: true # Bu satır ya tamamen kaldırılmalı ya da aşağıdaki gibi olmalı
-          submodules: false # <<< BU SATIR BÖYLE OLMALI
+          # `static_site/themes/minimal` gibi alt modülleri dışlamak için ayar.
+          # Bu, "submodule issue" hatasını çözmelidir.
+          submodules: false
           fetch-depth: 0
 
       - name: Set up Python
@@ -39,10 +40,13 @@ jobs:
           # pip install -r requirements.txt
           # Gerekli kütüphaneleri manuel olarak yükle
           pip install Flask requests apscheduler python-dotenv
+        # Bu adımda 'env:' bloğu kesinlikle OLMAMALI,
+        # çünkü WORLD_NEWS_API_KEY'in pip kurulumuna karışmasına neden olabilir.
 
       - name: Run News Bot (Fetch News & Generate Hugo Content)
         env:
           # GitHub Secrets'tan API anahtarını ortam değişkeni olarak sağlar.
+          # Bu, "WORLD_NEWS_API_KEY ortam değişkeni ayarlanmadı" hatasını çözmelidir.
           WORLD_NEWS_API_KEY: ${{ secrets.WORLD_NEWS_API_KEY }}
         run: |
           # Flask sunucusunu başlatmadan, haber çekme ve Hugo içeriği oluşturma mantığını doğrudan çağırıyoruz.
@@ -53,13 +57,13 @@ jobs:
 
       - name: Build Hugo Site
         # Hugo'nun 'static_site' klasörü içinde çalışmasını sağlar
-        working-directory: static_site 
+        working-directory: static_site
         run: |
           # Hugo CLI aracını indir ve kur (Ubuntu için .deb paketi)
           # Kullandığınız Hugo sürümünü ve işletim sistemini kontrol edin.
           wget https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.deb -O /tmp/hugo.deb
           sudo dpkg -i /tmp/hugo.deb
-          
+
           # Hugo sitesini derle. -D taslakları da dahil eder.
           hugo -D
 
@@ -69,10 +73,10 @@ jobs:
         with:
           # GitHub tarafından sağlanan varsayılan bir token, dağıtım için yetkilidir.
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Hugo'nun derlenmiş çıktısının bulunduğu dizin. 
+          # Hugo'nun derlenmiş çıktısının bulunduğu dizin.
           # Burası `static_site` klasörünün içindeki `public` klasörüdür.
-          publish_dir: ./static_site/public 
-          # GitHub Pages'i yayınladığınız branş. 
-          # Eğer "main" branşından yayınlıyorsanız bu satırı yorum satırı bırakın.
-          # Varsayılan olarak 'gh-pages' branşına dağıtır.
-          # publish_branch: gh-pages
+          publish_dir: ./static_site/public
+          # GitHub Pages'i yayınladığınız branş.
+          # Bu satır, `gh-pages` branşının oluşmasını ve sitenizin o branştan yayınlanmasını sağlar.
+          # Bu, Pages ayarlarında "main" branşını görmeme ve 404 hatasını çözmelidir.
+          publish_branch: gh-pages
