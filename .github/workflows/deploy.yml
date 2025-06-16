@@ -19,10 +19,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # İş akışının çalışacağı işletim sistemi
 
-    permissions: # BU YENİ EKLENEN KISIM!
-      contents: write # Repoya yazma izni (örneğin submodule ekleme için)
-      pages: write # GitHub Pages'a dağıtım izni
-      id-token: write # OIDC token almak için gerekli izin (son hata buydu)
+    permissions: # BU BLOK ZATEN VARDI
+      contents: write
+      pages: write
+      id-token: write
+
+    environment: # YENİ EKLENECEK OLAN BLOK BURASI!
+      name: github-pages # Ortamın adı, GitHub Pages için standarttır
+      url: ${{ steps.deployment.outputs.page_url }} # Dağıtılan sitenin URL'si (isteğe bağlı ama iyi bir pratik)
 
     steps:
       - name: Checkout repository
