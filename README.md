@@ -157,8 +157,7 @@ We welcome your feedback and contributions\! Please feel free to open an "Issue"
 
 ## License
 
-This project is licensed under the [MIT License](https://www.google.com/search?q=LICENSE). (It is recommended to create a `LICENSE` file if you don't have one.)
-
+This project is licensed under the [MIT License](https://www.google.com/search?q=LICENSE)
 ## Contact
 
 For any questions or feedback, feel free to reach out:
