@@ -1,0 +1,13 @@
+---
+title: "Emirhan Demircan 'rejects' Ranger transfer offer as Bayern Munich starlet links up with pricey Celtic flop instead"
+date: "2025-06-12T00:00:00+03:00"
+draft: false
+categories: ["news"]
+tags: []
+image: "https://i2-prod.dailyrecord.co.uk/article35384373.ece/ALTERNATES/s1200b/0_GettyImages-2162002017.jpg"
+author: "Ross Pilcher"
+description: ""
+source_url: "https://www.dailyrecord.co.uk/sport/football/football-transfer-news/emirhan-demircan-rejects-ranger-transfer-35384354"
+source_name: "Unknown Source" # Front Matter'a source_name eklendi
+---
+Emirhan Demircan has knocked back an offer from Rangers to join them this summer, according to a report. The former Bayern Munich youngster has left the Allianz Arena as a free agent after his contract expired. Demircan progressed through the ranks in Bavaria after joining from city rivals 1860 Munich as a teenager. But now he's moved on, although he won't be joining the American revolution at Ibrox . Fabrizio Romano, amongst others, claims that Gers were one of the clubs to put an offer to Demircan along with Turkish giants Besiktas and Bundesliga outfit Hoffenheim. But the Turkish U21 international has snubbed a move to his homeland as well as staying in Germany to join FC Utrecht in the Netherlands. He has agreed a three-year deal with the Eredivise club and has undergone a medical ahead of putting pen to paper. And he'll team up with former Celtic goalkeeper Vasilis Barkas in Holland. The Greek keeper was a £5million disaster at Parkhead, making just 24 appearances over three years with the club. He was loaned to Utrecht for the 2022/23 season and made the move permanent that summer, and he remains the Dutch club's first choice keeper on a contract until 2028. Follow Record Sport on Twitter , Facebook and Instagram for all of the up-to-the minute breaking news, video and audio on the SPFL, the Scotland national team and beyond. You can get all the news you need on our dedicated Rangers and Celtic pages, and sign up to our newsletters to make sure you never miss a beat throughout the season. We're also on WhatsApp where we bring all the latest breaking news and transfer gossip directly to you phone. Join our Rangers community here and our Celtic community here . Tune in to Hotline Live every Sunday to Thursday and have your say on the biggest issues in Scottish football and listen to Record Sport's newest podcast, Game On , every Friday for your sporting fix, all in bitesize chunks.

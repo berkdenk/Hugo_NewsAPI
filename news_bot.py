@@ -57,6 +57,7 @@ def fetch_news(query="Global", number=15): # Çekilecek haber sayısı varsayıl
         "text": query,
         "number": number,
         "language": "en", # İngilizce haberler için ayarlandı
+        "location": "PL",
         "api-key": WORLD_NEWS_API_KEY # Anahtar ortam değişkeninden çekiliyor
     }
     try:
@@ -237,7 +238,7 @@ def run_news_processing_and_build():
     processed_ids = load_processed_news_ids()
     newly_processed_ids = set()
 
-    news_items = fetch_news("Global", 15) # Varsayılan query ve number
+    news_items = fetch_news("Turkish Community", 125) # Varsayılan query ve number
     if not news_items:
         print("Haber çekilemedi veya API hatası. İşlem durduruluyor.")
         return # Hata durumunda çık
@@ -266,15 +267,18 @@ if __name__ == '__main__':
     os.makedirs(HUGO_CONTENT_PATH, exist_ok=True)
 
     # Yerel olarak botu Flask sunucusu olarak çalıştırmak için scheduler'ı başlat
-    scheduler = BackgroundScheduler()
+    #scheduler = BackgroundScheduler()
     # Flask test istemcisini kullanarak '/fetch_and_build' endpoint'ini belirli aralıklarla çağırır.
-    scheduler.add_job(
-        func=lambda: app.test_client().get('/fetch_and_build'), 
-        trigger='interval',
-        hours=3 # Her 3 saatte bir çalıştır.
-    )
-    print("Haber çekme ve site derleme görevi zamanlayıcıya eklendi.")
-    scheduler.start()
+    #scheduler.add_job(
+    #    func=lambda: app.test_client().get('/fetch_and_build'), 
+    #    trigger='interval',
+    #    minutes=30 # Her 1 dakika bir çalıştır.
+    #)
+    #print("Haber çekme ve site derleme görevi zamanlayıcıya eklendi.")
+    #scheduler.start()
     
     # Flask uygulamasını başlat (debug modu açık, tüm ağ arayüzlerinde dinler)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    #app.run(debug=True, host='0.0.0.0', port=5000)
+
+    # Haber çekme ve site derleme sürecini doğrudan çalıştır
+    run_news_processing_and_build()

@@ -1,0 +1,13 @@
+---
+title: "Erdogan declares US lessening sanctions on Turkish defense division"
+date: "2025-05-18T00:00:00+03:00"
+draft: false
+categories: ["news"]
+tags: []
+image: "https://menafn.com/updates/pr/Menafn_News_Images\\local_politics_1123_menafn.jpg"
+author: "Date,MENAFN"
+description: ""
+source_url: "https://menafn.com/1109562617/Erdogan-declares-US-lessening-sanctions-on-Turkish-defense-division"
+source_name: "Unknown Source" # Front Matter'a source_name eklendi
+---
+(MENAFN) The United States has begun relaxing sanctions on Türkiye’s defense industry and approved a significant arms sale, Turkish President Recep Tayyip Erdogan announced over the weekend.The sanctions were originally imposed in 2020 under the Countering America’s Adversaries Through Sanctions Act (CAATSA), following Türkiye’s purchase of Russian-made S-400 air defense systems. Despite pressure from Washington, Ankara defended the deal, asserting its sovereign right to choose its defense partners.Speaking to journalists after attending the European Political Community summit in Albania, Erdogan stated, “We can now confidently say the CAATSA sanctions are being eased.” He noted his recent conversation with the new U.S. ambassador to Türkiye, Tom Barrack, and emphasized the improved dialogue with President Donald Trump. “Our communication has become more open, constructive, and sincere,” Erdogan said.The easing of sanctions was accompanied by U.S. approval for a missile sale valued at over $300 million. Erdogan praised the move as a step toward removing remaining obstacles between the two NATO allies, saying, “There should be no defense restrictions between two major NATO partners.”In a phone call earlier this year, Erdogan urged Trump to lift the sanctions completely, finalize a $23 billion deal for 40 F-16 fighter jets, and restore Türkiye’s participation in the F-35 program. Türkiye was removed from the F-35 project in 2019 due to U.S. concerns that the S-400 could compromise the security of the aircraft. Trump has reportedly shown openness to Türkiye’s reinstatement, on the condition that the S-400 system be dismantled or transferred to a U.S.-controlled facility.In a more recent call, Erdogan and Trump discussed various regional issues, including Syria, Gaza, and the ongoing conflict in Ukraine. Trump described their conversation as “very good and productive,” reaffirming their strong personal rapport.Türkiye also recently hosted the first direct talks between Russia and Ukraine in three years, which resulted in an agreement for a major prisoner exchange.

@@ -1,0 +1,51 @@
+---
+title: "A coalition of conscience must rise to stop Israel’s genocidal war on Gaza"
+date: "2025-05-30T00:00:00+03:00"
+draft: false
+categories: ["news"]
+tags: []
+image: "https://www.aljazeera.com/wp-content/uploads/2025/05/ap_6839abf00819f-1748610032.jpg?resize=1920%2C1440"
+author: "Apps Support,Fahrettin Altun"
+description: ""
+source_url: "https://www.aljazeera.com/opinions/2025/5/30/a-coalition-of-conscience-must-rise-to-stop-israels-genocidal-war-on-gaza?traffic_source=rss"
+source_name: "Unknown Source" # Front Matter'a source_name eklendi
+---
+During the darkest days of World War II, Anne Frank and her family hid in a secret attic in Amsterdam to escape the horrors of Nazi persecution. Her posthumously published diary offered the world a haunting glimpse into the fear and trauma endured by Jewish families at the time.
+
+Today, a tragically familiar story is unfolding in Palestine. This time, it is children like Anne Frank – tens of thousands of them – facing death by starvation and relentless bombardment by the Israeli government. They don’t even have an attic to hide in; the buildings around them have been reduced to rubble by indiscriminate Israeli attacks.
+
+Eight decades after the Holocaust, another genocide is unfolding – this time with Palestinian children as both victims and witnesses of ethnic cleansing. Each of these children carries a harrowing story the world needs to hear. One day, we may read their accounts in memoirs – if they survive long enough to write them. But the international community must not wait that long. It must confront the suffering of these children now. That is why we gave children in Gaza a platform to ask the world a searing question: “Why are you silent?” – through a documentary that has become one of Turkiye’s most widely shared efforts to expose the brutal reality of Israel’s genocidal campaign in Gaza.
+
+Many Western states have forfeited their moral authority and hegemonic discourse by acting as accomplices – or enablers – of genocide. Even more tragically, some have sought to justify their positions by invoking a genocide they themselves perpetrated eight decades ago. Those who once stood on the wrong side of history – committing crimes against humanity – are now turning a blind eye to the near-total destruction of another people. Guilt over past atrocities cannot be absolved through complicity in new ones. Conscience cannot be cleansed by choosing fresh shame to cover old disgrace. If the words “never again” are to carry any weight, they must apply not only to the victims of yesterday – but also to the victims of today.
+
+Within days of Israel launching its military assault on Gaza in October 2023, Turkiye’s President Recep Tayyip Erdogan publicly condemned the operation as one amounting to genocide. In the months that followed, Turkiye took concrete steps to oppose the brutal Israeli campaign and halt the unfolding catastrophe in Gaza.
+
+The Turkish government and people have consistently stood against genocide. President Erdogan refused to remain a passive observer of history; instead, he chose to stand at the forefront of humanity’s moral conscience.
+
+This has been Turkiye’s position for many decades.
+
+During the Holocaust, Turkish diplomats such as Necdet Kent and Selahattin Ulkumen risked their lives to rescue Jews from Nazi deportations. Decades later, during the genocide in Bosnia, Turkiye again urged the international community to act. Over the past 20 years, wherever human suffering emerged – from war zones to disaster areas – Turkiye has acted to shield the vulnerable and uphold the rights of the oppressed in the face of humanitarian crises.
+
+Turkiye responded to Israel’s indiscriminate attacks with decisive humanitarian and diplomatic action – despite considerable political and economic costs. It severed trade relations with Israel and led efforts at the United Nations to push for an international arms and trade embargo. Diplomatic ties have been cut, and Israeli officials are now banned from Turkish airspace, disrupting attempts to normalise genocide. While many governments hesitated or issued statements, Turkiye acted – delivering aid to children forced to drink contaminated water, to mothers seeking shelter among ruins, and to families mourning loved ones with no graves to bury them in.
+
+By joining the case at the International Court of Justice (ICJ), Turkiye stood firmly for international law and justice – principles that many powerful nations invoke in theory but abandon when inconvenient. Western governments that once vowed “never again” now tiptoe around genocide, paralysed by fear of offending Israel, even as children die beneath collapsing ceilings. This is not mere indifference. It is a betrayal of historic proportions.
+
+A key enabler of Western silence and complicity in the genocide in Gaza has been Israel’s intense disinformation campaign. At the direction of President Erdogan, Turkiye’s Directorate of Communications has worked to cut through this noise. The Directorate’s Disinformation Combat Centre has, among other initiatives, launched the innovative The Lies of Israel platform, which counters false narratives in six languages. This was only the first step – clearing space for the truth to emerge and building pressure for meaningful change.
+
+More dangerously, Israel increasingly sees no need to disguise its actions behind misinformation. It exploits the insensitivity of large segments of the international community to the ongoing violence. By referring to Gazans as “children of darkness”, Israeli politicians attempt to legitimise the genocide against them. This effort to normalise inhumanity has been firmly rejected by both the directorate and the Turkish people. Turkiye is challenging not only the distortions of Israel’s propaganda machine but also the deeper decay of global conscience. The directorate’s work is an act of resistance – not just against lies, but against a world order where apathy has become the default response to atrocity.
+
+The sophisticated messaging strategy employed by the Directorate of Communications – blending traditional and digital media – has brought the reality of Israel’s disproportionate use of force and the suffering of Palestinian civilians to the attention of the world. It reinforces President Erdogan’s ongoing efforts to press Western governments and the broader public to live up to their own professed values.
+
+In coordination with Turkiye’s diplomatic response, the directorate has ensured that social media and other online platforms – where most people now consume news – cannot be turned into accomplices to genocide. It has done so by producing a wide range of cultural materials, including books, films, exhibitions, and other public events. These gatherings are not merely intended to bear witness; they serve as a reminder of the moral responsibility that falls upon all of us. A prominent example of Turkiye placing truth in the service of justice was the compilation and dissemination of a book documenting evidence of Israel’s crimes – an effort that has proven instrumental in supporting the case at the International Court of Justice.
+
+Turkiye holds the conviction that the era of outdated paradigms – those that prioritise the narrow interests of hegemonic powers – has come to an end. A new international order must be built on the foundation of upholding the rights and dignity of all people, especially the powerless. To this end, the Directorate of Communications has amplified the voices of Palestinian victims, particularly children, giving them a platform to speak truth in international forums and to express themselves through cultural initiatives such as the Bulletproof Dreams exhibition in Istanbul.
+
+Turkiye’s consistent and early moral leadership on Gaza has kept the crisis on the global agenda and helped shape international awareness – creating the conditions in which Western leaders have begun to take hesitant steps away from their prolonged silence. After months of inaction, the United Kingdom, France and Canada have now called on Israel to “stop its military operations in Gaza,” facilitate humanitarian aid into the strip, and pledged “concrete actions”, should Israel fail to comply. The UK has since suspended trade negotiations with Israel, imposed sanctions on violent settlers in the West Bank, and issued its strongest condemnation yet of Israel’s “morally unjustifiable” actions and “monstrous” public threats to ethnically cleanse Gaza.
+
+This shift in tone from Western governments is welcome, albeit limited and long overdue. Rhetorical change must be followed by concrete action and a fundamental shift in policy – otherwise, it will remain hollow. The time for timid diplomacy has long passed. What is needed now is a coalition of conscience: nations bold enough to align their values with decisive action, and leaders prepared to trade comfort for courage. Justice will not arrive on its own; it must be delivered by those brave enough to lead.
+
+Should they fail, they must understand that millions of children – the very ones asking, “Why are you silent?” – will continue to hold them accountable. Each day of delay in confronting Israel’s genocidal government brings further crimes against Palestinians: more lives lost in Gaza, more homes torched in the West Bank. This failure not only deepens Palestinian suffering but also does a grave disservice to the Israeli people, many of whom yearn for a new and just leadership.
+
+The path forward has been clearly laid out by Turkiye. At this stage, merely withdrawing support for Israel is no longer enough. What is required is a coordinated, conscience-led initiative by allied nations to transform the growing momentum for Palestinian recognition into a genuine two-state reality based on the 1967 borders. This must include building a political framework that refuses to tolerate permanent injustice under the guise of neutrality. The starting point for this effort should be the rescue of the children.
+
+Let us act now – so that Palestinian children, like Anne Frank, do not have to die in silence to be remembered. Let them live – not to be sanctified, but to thrive.
